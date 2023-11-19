@@ -6,6 +6,20 @@ const app = express()
 //  listen for requests
 app.listen(3000)
 
+// Middleware - Logs every request
+app.use( function (req, res, next) {
+     console.log('new request made:');
+     console.log('host: ', req.hostname);
+     console.log('path: ', req.path);
+     console.log('method: ', req.method);
+     //Move on
+     next();
+})
+
+// Middleware - serve static files
+app.use( express.static('public'));
+
+
 // Handler for '/' root url
 app.get('/', function (req, res) {
      // res.send('Express App')
