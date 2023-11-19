@@ -458,3 +458,40 @@ app.get('/about-us', function (req, res) {
       res.status(404).sendFile('./views/404.html', {root: __dirname})
  })
 ```
+
+### Middleware
+
+Code which runs (on the server) between getting a request and sending a response.
+
+![Untitled](assets/Untitled%202.png)
+
+**Middleware Examples:**
+
+- Logger middleware to log details of every request
+- Authentication check middleware for protected routes
+- Middleware to parse JSON data from requests
+- Return 404 pages
+
+**3rd Party Middleware's**
+
+**1. Helmet — Increase HTTP Header Security**
+
+Helmet helps you secure your Express apps by setting various HTTP headers.
+
+**2. Cookie-parser — Parse Cookies**
+
+Cookie-parser is a middleware that transfers cookies with client requests
+
+**3. Passport — Access to Wide Range of Authentication Mechanisms**
+
+Passport is a simple unproductive authentication middleware for Node.js.
+
+**4. Morgan— Log HTTP Requests and Errors**
+
+Morgan is an HTTP request logger middleware for N typically used for apps.
+
+**5. CORS — Allow or Restrict Requested Resources on a Web Server**
+
+CORS is a node.js package that provides a Connect/Express middleware for enabling CORS with a variety of options.
+
+[https://medium.com/@alirezakargar/what-app-use-method-do-in-express-js-7ea533d55b4e](https://medium.com/@alirezakargar/what-app-use-method-do-in-express-js-7ea533d55b4e)
