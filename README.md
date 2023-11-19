@@ -1,6 +1,5 @@
 # Basics of NodeJS  
 
-
 ## What is Node JS
 
 Node JS is ideal for building highly-scalable, data-intensive and real time apps, backend services or client applications.
@@ -75,7 +74,7 @@ console.log(window);
 // ReferenceError: widown is not defined
 ```
 
-## Node Global Object
+## NodeJS Global Object
 
 - There are functions that are globally available like :
 console.log() , setTimeout(), setInterval()  they all present on the global object in JS.
@@ -97,7 +96,7 @@ global.message
 global.console.log('hello')
 ```
 
-## Node Modules
+## NodeJS Modules
 
 - In modern JavaScript application we split our code into many files.
 - Its not a good practice to put/create variables and function on global scope because it can create overrides and distortions when we have a lot of code.
@@ -107,9 +106,27 @@ global.console.log('hello')
 
 ```jsx
 console.log(module)
-```
 
-![Untitled](assets/Untitled%202.png)
+/*
+Module {
+  id: '.',
+  path: 'C:\\Users\\xxx\\\OneDrive\\Desktop\\dev\\nodejs-basics',
+  exports: {},
+  filename: 'C:\\Users\\xxx\\OneDrive\\Desktop\\dev\\nodejs-basics\\app.js',
+  loaded: false,
+  children: [],
+  paths: [
+    'C:\\Users\\xxx\\OneDrive\\Desktop\\dev\\nodejs-basics\\node_modules',
+    'C:\\Users\\xxx\\OneDrive\\Desktop\\dev\\node_modules',
+    'C:\\Users\\xxx\\OneDrive\\Desktop\\node_modules',
+    'C:\\Users\\xxx\\OneDrive\\node_modules',
+    'C:\\Users\\xx\\node_modules',
+    'C:\\Users\\node_modules',
+    'C:\\node_modules'
+  ]
+}
+*/
+```
 
 ### Creating a Module
 
@@ -179,12 +196,22 @@ logger.log('message');
 
 ```jsx
 const path = require('path');
-
 const pathObj = path.parse(__filename);
 
-```
+console.log({pathObj})
 
-![Untitled](assets/Untitled%203.png)
+/* 
+{
+  pathObj: {
+    root: 'N:\\',
+    dir: 'N:\\Users\\xxx\\Desktop\\dev\\nodejs-basics\\common-modules',
+    base: 'path.js',
+    ext: '.js',
+    name: 'path'
+  }
+*/
+
+```
 
 ## OS Module
 
@@ -194,10 +221,12 @@ const os = require('os');
 let totalMemory = os.totalmem();
 let freeMemory = os.freemem();
 
+console.log('Free Memory: ' + freeMemory);
 console.log('Total Memory: ' + totalMemory);
-```
 
-![Untitled](assets/Untitled%204.png)
+// Free Memory: 15333224448
+// Total Memory: 34064277504
+```
 
 ## File System Module
 
@@ -212,9 +241,11 @@ fs.readdir('./', function(err,files){
 	if(err) console.log('Error', err);
  else  console.log('Result' , files);
 });
+
+// Result [ 'app.js', 'assets', 'common-modules', 'module-example', 'README.md' ]
 ```
 
-## File System Module
+## Events  Module
 
 One of the core concepts in Node.
 
@@ -231,14 +262,15 @@ One of the core building block of Node and a lot of this classes based on this E
 ```jsx
 const EventEmitter = require('events');
 
-const emitter = new EventEmiiter();
+const emitter = new EventEmitter();
 
 // Registring a listener
 emitter.on('messageLogged', function(){
   console.log('Listener Called');
 });
 
-//to raise an event , emit means to make a noise or produce something- signalling
+// To raise an event , emit means to make a noise or produce something - signalling
+
 // Triggering messageLogged Event
 emitter.emit('messageLogged'); //name of the event
 
@@ -259,15 +291,14 @@ emitter.emit('messageLogged', {id: 1, url: 'http://...'});
 // Output: Listener Called {id: 1, url: 'http://....'}
 ```
 
-### Extending EventEmitter
+### Extending Event Emitter
 
 ```jsx
 //Logger.js
 
 const EventEmitter = require('events');
- const url = 'https://mylogger.io/log';
 
-class Logger extends EvenrtEmitter{
+class Logger extends EventEmitter{
 	log(message){
 	// Send an HTTP Reuest
 		console.log(message);
@@ -330,5 +361,100 @@ server.listen(3000);
 console.log('Listening on port 3000...');
 ```
 
+## NPM
 
-[https://www.youtube.com/watch?v=TlB_eWDSMt4](https://www.youtube.com/watch?v=TlB_eWDSMt4)
+- npm is the package manager for [Node.js](http://nodejs.org/). It was created in 2009 as an [open source project](https://github.com/npm/npm) to help JavaScript developers easily share packaged modules of code.
+- The npm Registry is a public collection of packages of open-source code for Node.js, [front-end web apps](http://www.ember-cli.com/), [mobile apps](http://cordova.apache.org/), [robots](https://tessel.io/), [routers](https://linerate.f5.com/), and countless other needs of the JavaScript community.
+- npm is the command line client that allows developers to install and publish those packages
+- 
+    
+    ### package.json
+    
+    Creating a package JSON file to use 3th side modules.
+    
+    ```jsx
+    npm init
+    ```
+    
+    [https://docs.npmjs.com/cli/v10/configuring-npm/package-json](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)
+    
+
+### NodeMon
+
+nodemon is a tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected.
+
+```jsx
+npm install -g nodemon 
+```
+
+[https://www.npmjs.com/package/nodemon](https://www.npmjs.com/package/nodemon)
+
+### Lodash
+
+A modern JavaScript utility library delivering modularity, performance & extras.
+
+[https://lodash.com/](https://lodash.com/)
+
+```jsx
+npm i -g npm
+npm i --save lodash
+```
+
+[https://github.com/lodash/lodash/tree/4.17.21-npm](https://github.com/lodash/lodash/tree/4.17.21-npm)
+
+common practice to use underscore (_)
+
+```jsx
+const _ = require('lodash');
+```
+
+### Express (framework)
+
+Fast, unopinionated, minimalist web framework for **[Node.js](http://nodejs.org/)**.
+
+```jsx
+const express = require('express')
+const app = express()
+
+app.get('/', function (req, res) {
+  res.send('Hello World')
+})
+
+app.listen(3000)
+```
+
+[https://www.npmjs.com/package/express](https://www.npmjs.com/package/express)
+
+Express App
+
+```jsx
+const express = require('express')
+
+// express app
+const app = express()
+
+//  listen for requests
+app.listen(3000)
+
+// Handler for '/' root url
+app.get('/', function (req, res) {
+     // res.send('Express App')
+     res.sendFile('./views/index.html', {root: __dirname})
+})
+
+// Handler for '/about' url
+app.get('/about', function (req, res) {
+      res.sendFile('./views/about.html', {root: __dirname})
+ })
+ 
+ // Handler for  ridercting from '/about-us' to '/about' url
+app.get('/about-us', function (req, res) {
+      res.redirect('/about');
+ })
+ 
+ //Middleware
+ // 404 page
+ app.use(function (req, res) {
+      res.status(404).sendFile('./views/404.html', {root: __dirname})
+ })
+```
